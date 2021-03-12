@@ -12,7 +12,7 @@ interface HomeCategoryProps {
         movies: {
             id: string,
             poster: string,
-        }[]
+        }[],
     }
 }
 
@@ -27,6 +27,7 @@ const HomeCategory = (props: HomeCategoryProps) => {
                     <Image style={styles.image} source={{ uri: item.poster }} />
                 )}
                 horizontal
+                showsHorizontalScrollIndicator={false}
             />
         </>
     );

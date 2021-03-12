@@ -49,6 +49,26 @@ export default {
                     video: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
                 }]
             }
+        }, {
+            id: 'season3',
+            name: 'Season 3',
+            episodes: {
+                items: [{
+                    id: 'episode3',
+                    title: '1. New season',
+                    poster: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/netflix/ep3.jpg',
+                    duration: '41m',
+                    plot: 'When Harvey\'s promotion requires him to recruit and hire a graduate of Harvard Law, he chooses Mike Ross. But Mike doesn\'t actualy have a law degree',
+                    video: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+                }, {
+                    id: 'episode4',
+                    title: '2. Are you subscribed?',
+                    poster: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/netflix/ep0.jpg',
+                    duration: '49m',
+                    plot: 'An open-and-shut case becomes anything but when Harvey is accused of an inappropriate dalliance with a married woman.',
+                    video: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+                }]
+            }
         }]
     }
 }
