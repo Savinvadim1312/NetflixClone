@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { View, Text } from 'react-native'
 import { Video } from 'expo-av';
+import { Storage } from 'aws-amplify';
 import { Episode } from '../../types';
 import styles from './styles';
 import { Playback } from 'expo-av/build/AV';
@@ -11,9 +12,18 @@ interface VideoPlayerProps {
 
 const VideoPlayer = (props: VideoPlayerProps) => {
     const { episode } = props;
+    const [videoURL, setVideoURL] = useState('');
 
     const [status, setStatus] = useState({});
     const video = useRef<Playback>(null);
+
+    useEffect(() => {
+        if (episode.video.startsWith('http')) {
+            setVideoURL(episode.video);
+            return;
+        }
+        Storage.get(episode.video).then(setVideoURL);
+    }, [episode])
 
     useEffect(() => {
         if (!video) {
@@ -22,21 +32,25 @@ const VideoPlayer = (props: VideoPlayerProps) => {
         (async () => {
             await video?.current?.unloadAsync();
             await video?.current?.loadAsync(
-                { uri: episode.video },
+                { uri: videoURL },
                 {},
                 false
             );
         })();
-    }, [episode])
+    }, [videoURL])
 
+    console.log(videoURL);
 
-    console.log(episode);
+    if (videoURL === '') {
+        return null;
+    }
+
     return (
         <Video
             ref={video}
             style={styles.video}
             source={{
-                uri: episode.video,
+                uri: videoURL,
             }}
             posterSource={{
                 uri: episode.poster,
@@ -44,7 +58,7 @@ const VideoPlayer = (props: VideoPlayerProps) => {
             posterStyle={{
                 resizeMode: 'cover',
             }}
-            usePoster={true}
+            usePoster={false}
             useNativeControls
             resizeMode="contain"
             onPlaybackStatusUpdate={status => setStatus(() => status)}            
